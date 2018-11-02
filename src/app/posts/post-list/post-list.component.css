@@ -43,14 +43,3 @@ mat-spinner {
 .input[type="file"] {
   visibility: hidden;
 }
-
-.notification {
-  position: fixed;
-  top: 0;
-  background: #fff;
-  padding: 20px;
-  right: 0;
-  z-index: 999;
-  box-shadow: 1px 1px 10px #555;
-  display: none;
-}

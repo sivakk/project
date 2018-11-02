@@ -48,6 +48,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   private postsSub: Subscription;
   today: number = Date.now();
   form: FormGroup;
+  disableButton: any;
+  disableButton1: any;
   imagePreview: any;
   options = [1, 2, 3];
   optionSelected: any;
@@ -71,6 +73,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    var totalSeconds = 0;
+
     this.getissues();
     this.form = new FormGroup({
       image: new FormControl(null, {
@@ -89,6 +93,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
   showSuccess() {
     this.toastService.success("Issue recived", "Thank you");
+  }
+
+  showInfo() {
+    this.toastService.info("Not Added.");
   }
   onDelete(postId: string) {
     this.postsService.deletePost(postId);
@@ -118,6 +126,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       console.log("issue content " + this.issues[0].issuecontent);
     });
   }
+
   addIssues(form) {
     let newIssue: Issue = {
       issuename: this.selectedValue,
@@ -147,7 +156,29 @@ export class PostListComponent implements OnInit, OnDestroy {
       clearInterval(interval);
     }, 5000);
   }
+  truthClick() {
+    this.disableButton = true;
+  }
 
+  countTimer = (totalSeconds1, secondsLabel, minutesLabel) => {
+    ++totalSeconds1;
+    secondsLabel.innerHTML = this.pad(totalSeconds1 % 60);
+    minutesLabel.innerHTML = this.pad(totalSeconds1 / 60);
+  };
+  timerVar = setInterval(this.countTimer, 1000);
+
+  pad(val) {
+    var valString = val + "";
+    if (valString.length < 2) {
+      return "0" + valString;
+    } else {
+      return valString;
+    }
+  }
+  truthClick1() {
+    this.disableButton1 = true;
+    clearInterval(this.timerVar);
+  }
   ngOnDestroy() {
     this.postsSub.unsubscribe();
   }
