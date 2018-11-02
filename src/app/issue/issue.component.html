@@ -1,0 +1,30 @@
+<div *ngFor="let post of issues ">
+  <div *ngIf=post>
+
+    {{post.issuename}}
+    <div *ngIf="!isLoading">
+      <p>hhhhhhhhhhhhhhhhhhhhhhh</p>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+
+
+
+<form (ngSubmit)="addIssues(frm)" #frm="ngForm">
+  <h2 id="add-person">Issues</h2>
+  <div class="form-group">
+    <label for="">issue name:</label>
+    <input type="text" class="form-control" name="issuename" [(ngModel)]="issuename">
+  </div>
+  <div class="form-group">
+    <label for="">issue content:</label>
+    <input type="text" class="form-control" name="issuecontent" [(ngModel)]="issuecontent">
+  </div>
+  <br>
+  <button type="submit" name="button" class="btn btn-success" [disabled]=frm.invalid>Add Issue</button>
+</form>

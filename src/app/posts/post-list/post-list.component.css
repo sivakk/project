@@ -11,8 +11,23 @@ mat-spinner {
   text-align: center;
 }
 
+.circle-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: block;
+  background-position-y: 25%
+}
+
 .post-image {
-  width: 100%;
+
+  border-radius: 50%;
+  background-color: #ddd;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border: 5px solid #fff;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .post-image img {
@@ -20,4 +35,19 @@ mat-spinner {
   height: 5rem;
   margin: 1rem 0;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.input[type="file"] {
+  visibility: hidden;
+}
+
+.notification {
+  position: fixed;
+  top: 0;
+  background: #fff;
+  padding: 20px;
+  right: 0;
+  z-index: 999;
+  box-shadow: 1px 1px 10px #555;
+  display: none;
 }

@@ -43,8 +43,11 @@ export class PostCreateComponent implements OnInit {
   timeLeft1: number = 1;
   today1: any;
   value: any;
+  count1: number = 0;
+  timer: number;
   m: number = 0;
   hours: any;
+  count: number;
   end: number;
   customers = ["sai", "siva", "murali"];
   selectedValue: string;
@@ -60,10 +63,13 @@ export class PostCreateComponent implements OnInit {
   today3 = this.today - this.today1;
   jstoday = "";
 
-  constructor(
-    public postsService: PostsService,
-    public route: ActivatedRoute
-  ) {}
+  constructor(public postsService: PostsService, public route: ActivatedRoute) {
+    // setInterval(() => {
+    //   this.count1++;
+    //   console.log(this.count1);
+    // }, 1000);
+    // console.log(this.count1);
+  }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -76,6 +82,7 @@ export class PostCreateComponent implements OnInit {
         asyncValidators: [mimeType]
       })
     });
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
@@ -101,6 +108,7 @@ export class PostCreateComponent implements OnInit {
       }
     });
   }
+
   hello(today1) {
     this.today1 = new Date().getTime();
   }

@@ -1,12 +1,27 @@
-<h1>{{ today | date: 'H' }}</h1>
+<!-- <h1>{{ today | date: 'H' }}</h1>
 <h1>{{ today }}</h1>
-<h1>{{ today1-today }}</h1>
+
 
 
 
 <button (click)="hello()">hai</button>
 <h2>{{today1 }}</h2>
 
+
+<div>
+
+  <form>
+    <h4>mat-select</h4>
+
+    <select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food">
+      <option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </option>
+    </select>
+
+    <p> Selected food: {{selectedValue}} </p>
+  </form>
+</div>
 
 
 <div>
@@ -19,7 +34,7 @@
   </select>
 
 
-</div>
+</div> -->
 
 
 
@@ -43,7 +58,7 @@
 
     <div>
       <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
-      <input type="file" #filePicker (change)="onImagePicked($event)">
+      <input type="file" #filePicker (change)="onImagePicked($event)" display=none>
     </div>
     <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
       <img [src]="imagePreview" [alt]="form.value.title">
