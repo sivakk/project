@@ -87,6 +87,7 @@
                     <h4>
                       <p>{{today | date:'medium'}}</p>
                     </h4>
+
                   </label>
 
                 </div>
@@ -162,7 +163,8 @@
         <label>Comment :</label>
         <input type="text" class="form-control" name="issuecontent" [(ngModel)]="issuecontent">
       </div>
-      <button type="submit" name="button" class="btn btn-success" [disabled]=frm.invalid>Add Issue</button>
+      <button type="submit" name="button" class="btn btn-success" (click)="showSuccess()" [disabled]=frm.invalid>Add
+        Issue</button>
     </form>
 
 
@@ -233,7 +235,7 @@
           {{post.issuename}}
 
 
-          <mat-spinner *ngIf="posts.length > 0 && !isLoading"></mat-spinner>
+
 
 
 

@@ -4,6 +4,7 @@ import { IssuesService } from "./issues.service";
 import { Subscription } from "rxjs";
 import { MatDialog } from "@angular/material";
 import { NgModule } from "@angular/core";
+import { ToastrService } from "ngx-toastr";
 
 import {
   FormGroup,
@@ -64,6 +65,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   messages: any;
 
   constructor(
+    private toastService: ToastrService,
     public postsService: PostsService,
     public IssuesService: IssuesService
   ) {}
@@ -85,7 +87,9 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
   }
-
+  showSuccess() {
+    this.toastService.success("Issue recived", "Thank you");
+  }
   onDelete(postId: string) {
     this.postsService.deletePost(postId);
   }

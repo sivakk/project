@@ -6,6 +6,7 @@ import { HttpModule } from "@angular/http";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { MatDialog } from "@angular/material";
+import { ToastrModule } from "ngx-toastr";
 
 import {
   MatInputModule,
@@ -46,6 +47,7 @@ import { IssueComponent } from "./issue/issue.component";
     MatExpansionModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     HttpModule
   ],
   providers: [],

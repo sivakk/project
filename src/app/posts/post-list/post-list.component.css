@@ -1,3 +1,6 @@
+@import '~ngx-toastr/toastr.css';
+
+
 :host {
   display: block;
   margin-top: 1rem;
