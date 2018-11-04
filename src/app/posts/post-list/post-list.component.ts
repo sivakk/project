@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Issue } from "./issue";
 import { IssuesService } from "./issues.service";
-import { Subscription } from "rxjs";
-import { MatDialog } from "@angular/material";
-import { NgModule } from "@angular/core";
+import { Subscription, interval } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 
 import {
@@ -15,7 +13,6 @@ import {
 
 import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
-import { post } from "selenium-webdriver/http";
 
 export interface Food {
   value: string;
@@ -34,23 +31,24 @@ export interface Car {
   providers: [IssuesService]
 })
 export class PostListComponent implements OnInit, OnDestroy {
-  // posts = [
-  //   { title: "First Post", content: "This is the first post's content" },
-  //   { title: "Second Post", content: "This is the second post's content" },
-  //   { title: "Third Post", content: "This is the third post's content" }
-  // ];
   selectedValue: string;
   selectedCar: string;
   issues: Issue[] = [];
   selectedissue: Issue;
   isLoading = false;
   posts: Post[] = [];
+  startDate: any;
+  interval: number;
   private postsSub: Subscription;
   today: number = Date.now();
+  today1: any = new Date().getTime();
   form: FormGroup;
   disableButton: any;
+  count: number = 0;
+  countDownDate: 1;
   disableButton1: any;
   imagePreview: any;
+  item: any;
   options = [1, 2, 3];
   optionSelected: any;
   foods: Food[] = [
@@ -65,6 +63,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     { value: "mercedes", viewValue: "Mercedes" }
   ];
   messages: any;
+  post: any;
 
   constructor(
     private toastService: ToastrService,
@@ -74,7 +73,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     var totalSeconds = 0;
-
     this.getissues();
     this.form = new FormGroup({
       image: new FormControl(null, {
@@ -92,7 +90,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
   }
   showSuccess() {
-    this.toastService.success("Issue recived", "Thank you");
+    this.toastService.success("post", "Thank you");
   }
 
   showInfo() {
@@ -118,13 +116,47 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
   getissues() {
     this.IssuesService.getPersons().subscribe(items => {
-      console.log(items);
+      if (items) {
+        console.log(items);
 
-      this.issues = items;
-      console.log(items);
-      console.log("issue name " + this.issues[0].issuename);
-      console.log("issue content " + this.issues[0].issuecontent);
+        this.issues = items;
+        this.item = this.issues.length;
+
+        console.log(items);
+        console.log("issue name " + this.issues[0].issuename);
+        console.log("issue content " + this.issues[0].issuecontent);
+      } else {
+        this.showInfo();
+      }
     });
+    if (this.item) {
+      this.showSuccess();
+      this.item = 0;
+    }
+  }
+
+  pick(interval, countDownDate) {
+    interval = setInterval(count => {
+      this.count++;
+    }, 1000);
+
+    countDownDate = new Date().getTime();
+    this.off(countDownDate);
+  }
+
+  off(t) {
+    console.log(this.countDownDate);
+
+    let distance: any = t - new Date().getTime();
+    console.log(distance);
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    console.log(seconds, minutes, hours, days);
   }
 
   addIssues(form) {

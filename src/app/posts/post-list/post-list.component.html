@@ -128,11 +128,11 @@
       <hr>
       <br>
       <br>
-      <button type="button" (click)="truthClick()" [disabled]="disableButton" class="btn btn-primary btn-lg">Start
+      <button type="button" (click)="truthClick();pick()" [disabled]="disableButton" class="btn btn-primary btn-lg">Start
         Timer</button>
       <div class="float-right">
-        <p>{{minutesLabel}}:{{secondsLabel}}</p>
-        <button type="button" (click)="truthClick1()" [disabled]="disableButton1" class="btn btn-secondary btn-lg btn btn-danger">Stop
+        <p>{{count}},{{startDate}},{{countDownDate}}</p>
+        <button type="button" (click)="truthClick1();off()" [disabled]="disableButton1" class="btn btn-secondary btn-lg btn btn-danger">Stop
           Timer</button>
       </div>
     </div>
@@ -234,7 +234,7 @@
 
     <div *ngFor="let post of issues ">
       <div *ngIf=post>
-        <div *ngIf="!isLoading ; else elseBlock" event="showInfo()">
+        <div *ngIf="!isLoading ; else elseBlock">
 
 
           {{post.issuename}}
@@ -245,7 +245,11 @@
 
 
         </div>
-        <ng-template #elseBlock>{{showSuccess()}}</ng-template>
+        <div *ngIf="isLoading">
+          {{showInfo()}}
+
+        </div>
+
 
 
 
