@@ -38,14 +38,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   isLoading = false;
   posts: Post[] = [];
   startDate: any;
-  interval: number;
+  interval: any;
   private postsSub: Subscription;
   today: number = Date.now();
   today1: any = new Date().getTime();
   form: FormGroup;
   disableButton: any;
   count: number = 0;
-  countDownDate: 1;
+  countDownDate: any;
   disableButton1: any;
   imagePreview: any;
   item: any;
@@ -135,19 +135,23 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
   }
 
-  pick(interval, countDownDate) {
-    interval = setInterval(count => {
+  pick() {
+    this.interval = setInterval(count => {
       this.count++;
     }, 1000);
 
-    countDownDate = new Date().getTime();
-    this.off(countDownDate);
-  }
-
-  off(t) {
+    this.countDownDate = new Date().getTime();
     console.log(this.countDownDate);
 
-    let distance: any = t - new Date().getTime();
+    return this.countDownDate, this.interval;
+  }
+
+  off() {
+    console.log(this.countDownDate);
+    clearInterval(this.interval);
+    this.count = 0;
+
+    let distance: any = new Date().getTime() - this.countDownDate;
     console.log(distance);
 
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -182,34 +186,13 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.form.value.content,
       this.form.value.image
     );
-
-    var interval = setInterval(() => {
-      this.postsService.getPosts();
-      clearInterval(interval);
-    }, 5000);
   }
   truthClick() {
     this.disableButton = true;
   }
 
-  countTimer = (totalSeconds1, secondsLabel, minutesLabel) => {
-    ++totalSeconds1;
-    secondsLabel.innerHTML = this.pad(totalSeconds1 % 60);
-    minutesLabel.innerHTML = this.pad(totalSeconds1 / 60);
-  };
-  timerVar = setInterval(this.countTimer, 1000);
-
-  pad(val) {
-    var valString = val + "";
-    if (valString.length < 2) {
-      return "0" + valString;
-    } else {
-      return valString;
-    }
-  }
   truthClick1() {
     this.disableButton1 = true;
-    clearInterval(this.timerVar);
   }
   ngOnDestroy() {
     this.postsSub.unsubscribe();
