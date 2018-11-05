@@ -190,7 +190,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     var str3 = seconds.toString();
     var res = str1.concat(str2, str3);
     console.log(res);
-    this.IssuesService.addTime(res);
+    this.IssuesService.addTime(res).subscribe(item => {
+      console.log(item);
+    });
 
     return seconds;
   }

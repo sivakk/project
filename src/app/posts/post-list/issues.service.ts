@@ -29,7 +29,7 @@ export class IssuesService {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     return this.http
-      .post("http://localhost:3000/api/timers/post_route", timesequence, {
+      .post("http://localhost:3000/api/timers/post_route", obj, {
         headers: headers
       })
       .pipe(map(res => res));
