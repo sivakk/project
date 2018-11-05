@@ -8,6 +8,7 @@ import {
   FormGroup,
   FormsModule,
   FormControl,
+  AbstractControl,
   Validators
 } from "@angular/forms";
 import { ActivatedRoute, ParamMap, Params } from "@angular/router";
@@ -25,7 +26,7 @@ export interface Food {
 @Component({
   selector: "app-post-create",
   templateUrl: "./post-create.component.html",
-  styleUrls: ["./post-create.component.css"]
+  styleUrls: ["./post-create.component.scss"]
 })
 export class PostCreateComponent implements OnInit {
   enteredTitle = "";
@@ -63,13 +64,10 @@ export class PostCreateComponent implements OnInit {
   today3 = this.today - this.today1;
   jstoday = "";
 
-  constructor(public postsService: PostsService, public route: ActivatedRoute) {
-    // setInterval(() => {
-    //   this.count1++;
-    //   console.log(this.count1);
-    // }, 1000);
-    // console.log(this.count1);
-  }
+  constructor(
+    public postsService: PostsService,
+    public route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -109,10 +107,6 @@ export class PostCreateComponent implements OnInit {
     });
   }
 
-  hello(today1) {
-    this.today1 = new Date().getTime();
-  }
-
   onImagePicked(event: Event) {
     console.log(this.value);
     const file = (event.target as HTMLInputElement).files[0];
@@ -126,9 +120,6 @@ export class PostCreateComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  changeValue(value) {
-    console.log(value);
-  }
   onSavePost() {
     if (this.form.invalid) {
       return;

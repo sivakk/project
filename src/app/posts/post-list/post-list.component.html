@@ -29,28 +29,30 @@
 
 </div> -->
 
+
+
 <div *ngFor="let post of posts">
   <div class="container bootstrap snippet">
-    <div class="row">
-      <div class="col-sm-10">
-
-      </div>
-      <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive"
-            src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=10"></a></div>
-    </div>
-    <div class="row">
-      <div class="col-sm-3">
-        <!--left col-->
-
-
-        <div class="text-center post-image">
-          <img [src]="post.imagePath" class="" alt="avatar">
-
+    <mat-card>
+      <div class="row">
+        <div class="col-sm-10">
 
         </div>
-        <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-        <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
-        <!-- <div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <!--left col-->
+
+
+          <div class="text-center post-image">
+            <img [src]="post.imagePath" class="" alt="avatar">
+
+
+          </div>
+          <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+          <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+          <!-- <div>
           <button mat-button color="warn" (change)="onEdit(post.id,post.title,post.content,post.imagePath); 
             filePicker.click()">edit</button>
           <input type="file" #filePicker (change)="onImagePicked1($event)">
@@ -64,120 +66,184 @@
 
 
 
-      </div>
-      <!--/col-3-->
-      <div class="col-sm-9">
+        </div>
+
+        <div class="col-sm-9">
 
 
 
-        <div class="tab-content">
-          <div class="tab-pane active" id="home">
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
 
-            <form class="form" action="##" method="post" id="registrationForm">
-              <div class="form-group">
+              <form class="form" action="##" method="post" id="registrationForm">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <label for="first_name">
+                        <h4>Name: {{post.title}}</h4>
 
-                <div class="col-xs-6">
-                  <label for="first_name">
-                    <h4>Name: {{post.title}}</h4>
+                      </label>
 
-                  </label>
-
-                </div>
-                <div class="col-xs-6">
-                  <label for="last_name">
-                    <h4>
+                    </div>
+                    <div class="col-sm-4">
                       <p>{{today | date:'medium'}}</p>
-                    </h4>
+                    </div>
 
-                  </label>
-
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group">
+                <div class="form-group">
 
-                <div class="col-xs-6">
-                  <label for="last_name">
-                    <h4>Username: {{post.content}}</h4>
-                  </label>
+                  <div class="col-xs-6 ">
+                    <label for="last_name">
+                      <h4>Username: {{post.content}}</h4>
+                    </label>
 
+                  </div>
                 </div>
-              </div>
 
 
 
 
-            </form>
+
+
+              </form>
+
+
+
+            </div>
+
 
 
 
           </div>
-          <!--/tab-pane-->
 
-          <!--/tab-pane-->
+        </div>
 
+
+      </div>
+    </mat-card>
+    <hr>
+    <mat-card>
+
+      <div class="container">
+
+        <div class="row">
+          <div class="col-5">
+            <button type="button" (click)="truthClick();pick()" [disabled]="disableButton" class="btn btn-primary btn-lg">Start
+              Timer</button>
+          </div>
+          <div class="col-4">
+            <p> {{h}}:{{y}}:{{count}} {{seconds}} Job Done</p>
+          </div>
+          <div class="col-sm">
+            <button type="button" (click)="truthClick1();off()" [disabled]="disableButton1" class="btn btn-secondary btn-lg btn btn-danger">Stop
+              Timer</button>
+          </div>
 
 
         </div>
-        <!--/tab-pane-->
       </div>
-      <!--/tab-content-->
-
-    </div>
-    <div class="container">
-      <hr>
-      <br>
-      <br>
-      <button type="button" (click)="truthClick();pick()" [disabled]="disableButton" class="btn btn-primary btn-lg">Start
-        Timer</button>
-      <div class="float-right">
-        <p>{{count}}</p>
-        <button type="button" (click)="truthClick1();off()" [disabled]="disableButton1" class="btn btn-secondary btn-lg btn btn-danger">Stop
-          Timer</button>
-      </div>
-    </div>
+    </mat-card>
     <hr>
 
-    <!-- 
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-        Select issue
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item">Action</a>
-        <a class="dropdown-item">Another action</a>
-        <a class="dropdown-item">Something else here</a>
+
+    <mat-card>
+
+      <form (ngSubmit)="addIssues(frm)" #frm="ngForm">
+
+        <h2>Raise issue</h2>
+        <div class="form-group">
+          <label>Select issue :</label>
+          <select class="form-control" [(ngModel)]="selectedValue" name="issueName" style="margin-bottom: 20px;">
+            <option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+            <option>
+          </select>
+
+          <label>Comment :</label>
+          <input type="text" class="form-control" name="issueComment" [(ngModel)]="issueComment">
+        </div>
+        <button type="submit" name="button" class="btn btn-success" [disabled]=frm.invalid>Add
+          Issue</button>
+      </form>
+    </mat-card>
+
+
+
+
+  </div>
+</div>
+
+
+<hr>
+<button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show()" mdbWavesEffect>Edit</button>
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
       </div>
-    </div> -->
+      <div class="modal-body">
+        <div *ngFor="let post of posts">
 
-    <form (ngSubmit)="addIssues(frm)" #frm="ngForm">
-      <!-- <div class="form-group">
-        <label for="">issue name:</label>
-        <input type="text" class="form-control" name="issuename" [(ngModel)]="issuename">
-      </div> -->
-      <h2>Raise issue</h2>
-      <div class="form-group">
-        <label>Select issue :</label>
-        <select class="form-control" [(ngModel)]="selectedValue" name="food" style="margin-bottom: 20px;">
-          <option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
-          <option>
-        </select>
+          <mat-card>
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+            <form [formGroup]="form" (submit)="onEdit(post.id)" #editform="ngForm" *ngIf="!isLoading">
 
-        <label>Comment :</label>
-        <input type="text" class="form-control" name="issuecontent" [(ngModel)]="issuecontent">
+
+
+
+
+
+              <div>
+                <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+                <input type="file" #filePicker style="visibility: hidden;" (change)="onImagePicked1($event)"
+                  [(ngModel)]="post.id">
+              </div>
+              <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+                <img [src]="imagePreview" [alt]="form.value.title">
+              </div>
+
+
+
+
+              ...
+
+              <div class="modal-footer">
+                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()"
+                  mdbWavesEffect>Close</button>
+                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="onEdit(post.id);ngOnInit()">Save!</button>
+              </div>
+            </form>
+          </mat-card>
+
+        </div>
       </div>
-      <button type="submit" name="button" class="btn btn-success" [disabled]=frm.invalid>Add
-        Issue</button>
-    </form>
-
-
-    <div class="notification" id="notification">
     </div>
+  </div>
+</div>
 
-    <!-- <div class="form-group purple-border">
-      <label for="exampleFormControlTextarea4"></label>
-      <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+<hr>
+
+
+
+
+
+
+
+
+<div *ngFor="let post of issues ">
+  <div *ngIf=post>
+    <div *ngIf="!isLoading ; else elseBlock">
+      {{post.issuename}}
+    </div>
+    <div *ngIf="isLoading">
     </div>
 
 
@@ -187,73 +253,6 @@
 </div>
 
 
-<br>
-<div class="col-sm-2">
-
-  <button class="btn btn-lg btn-success pull-right" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-    Save</button> 
-    <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-
-  </div>
-
-   
-<div *ngFor="let post of posts">
-
-  <mat-card>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form [formGroup]="form" (submit)="onEdit(post.id)" #editform="ngForm" *ngIf="!isLoading">
-
-
-
-
-
-
-      <div>
-        <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
-        <input type="file" #filePicker style="visibility: hidden;" (change)="onImagePicked1($event)" [(ngModel)]="post.id">
-      </div>
-      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
-        <img [src]="imagePreview" [alt]="form.value.title">
-      </div>
-
-      <button mat-raised-button color="accent" type="submit">Save Post</button>
-    </form>
-  </mat-card>
-
-</div>
-
-<form>
-  <select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food">
-    <option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
-    <option>
-  </select>
-
-</form>
-<p>Selected food: {{selectedValue}} </p> -->
-
-    <div *ngFor="let post of issues ">
-      <div *ngIf=post>
-        <div *ngIf="!isLoading ; else elseBlock">
-
-
-          {{post.issuename}}
-
-
-
-
-
-
-        </div>
-        <div *ngIf="isLoading">
-          {{showInfo()}}
-
-        </div>
-
-
-
-
-      </div>
 
 
 
@@ -270,9 +269,7 @@
 
 
 
-
-
-      <!-- <mat-card>
+<!-- <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
     <div>

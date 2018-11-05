@@ -13,23 +13,53 @@ router.get('/test', (req, res, next) => {
   })
 });
 
-router.post('/post_route', (req, res, next) => {
-  let newIssue = new Issue({
-    issuename: req.body.issuename,
-    issuecontent: req.body.issuecontent
-  });
-
+saveitem = function (newIssue, callback) {
   newIssue.save((err, issue) => {
 
     if (err) {
-      res.json(err)
-    } else {
-      res.json({
-        msg: 'issue added to db'
-      });
 
+      callback(err)
+    } else {
+      callback(issue);
     }
+
   });
+
+
+}
+
+
+
+router.post('/post_route', (req, res, next) => {
+  let item = req.body;
+  console.log(req.body);
+  console.log(item);
+
+  let newIssue = new Issue(item);
+  saveitem(newIssue, function (err, resp) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(resp);
+    }
+
+  })
+
+
+  // newIssue.save((err, issue) => {
+
+  //   if (err) {
+
+  //     res.json(err)
+  //   } else {
+  //     res.json({
+
+  //       msg: 'issue added to db'
+  //     });
+
+  //   }
+
+  // });
 });
 
 

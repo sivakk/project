@@ -3,12 +3,14 @@ import { Issue } from "./issue";
 import { IssuesService } from "./issues.service";
 import { Subscription, interval } from "rxjs";
 import { ToastrService } from "ngx-toastr";
+import { Time } from "./time";
 
 import {
   FormGroup,
   FormsModule,
   FormControl,
-  Validators
+  Validators,
+  AbstractControl
 } from "@angular/forms";
 
 import { Post } from "../post.model";
@@ -27,7 +29,7 @@ export interface Car {
 @Component({
   selector: "app-post-list",
   templateUrl: "./post-list.component.html",
-  styleUrls: ["./post-list.component.css"],
+  styleUrls: ["./post-list.component.scss"],
   providers: [IssuesService]
 })
 export class PostListComponent implements OnInit, OnDestroy {
@@ -49,6 +51,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   disableButton1: any;
   imagePreview: any;
   item: any;
+  y: number = 0;
+  h: number = 0;
   options = [1, 2, 3];
   optionSelected: any;
   foods: Food[] = [
@@ -73,7 +77,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     var totalSeconds = 0;
-    this.getissues();
     this.form = new FormGroup({
       image: new FormControl(null, {
         validators: [Validators.required]
@@ -135,9 +138,26 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
   }
 
+  imagetime() {
+    var interval = setInterval(() => {
+      this.getissues();
+
+      clearInterval(interval);
+      console.log("hai");
+    }, 5000);
+  }
+
   pick() {
     this.interval = setInterval(count => {
       this.count++;
+      if (this.count > 60) {
+        this.count = 0;
+        this.y = this.y + 1;
+      }
+      if (this.h > 60) {
+        this.count = 0;
+        this.h = this.h + 1;
+      }
     }, 1000);
 
     this.countDownDate = new Date().getTime();
@@ -149,26 +169,37 @@ export class PostListComponent implements OnInit, OnDestroy {
   off() {
     console.log(this.countDownDate);
     clearInterval(this.interval);
+
     this.count = 0;
+    this.y = 0;
 
     let distance: any = new Date().getTime() - this.countDownDate;
     console.log(distance);
 
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor(
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor(
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
     console.log(seconds, minutes, hours, days);
+
+    var str1 = hours.toString();
+    var str2 = minutes.toString();
+    var str3 = seconds.toString();
+    var res = str1.concat(str2, str3);
+    console.log(res);
+    this.IssuesService.addTime(res);
+
+    return seconds;
   }
 
   addIssues(form) {
-    let newIssue: Issue = {
-      issuename: this.selectedValue,
-      issuecontent: form.value.issuecontent
-    };
-    this.IssuesService.addIssue(newIssue).subscribe(item => {
+    var newIsssue1 = form.value;
+    console.log(newIsssue1);
+
+    this.IssuesService.addIssue(newIsssue1).subscribe(item => {
       console.log(item);
       this.getissues();
     });

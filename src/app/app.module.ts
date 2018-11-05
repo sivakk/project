@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { MatDialog } from "@angular/material";
 import { ToastrModule } from "ngx-toastr";
+import { MDBBootstrapModule } from "angular-bootstrap-md";
 
 import {
   MatInputModule,
@@ -47,6 +48,7 @@ import { IssueComponent } from "./issue/issue.component";
     MatExpansionModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    MDBBootstrapModule.forRoot(),
     ToastrModule.forRoot(),
     HttpModule
   ],

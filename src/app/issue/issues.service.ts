@@ -4,6 +4,7 @@ import { map, filter, scan } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 import { Issue } from "./issue";
+import { Time } from "./time";
 
 @Injectable({
   providedIn: "root"
@@ -25,6 +26,6 @@ export class IssuesService {
       .post("http://localhost:3000/api/issues/post_route", newIssue, {
         headers: headers
       })
-      .pipe(map(res => res.json()));
+      .pipe(map(res => res));
   }
 }

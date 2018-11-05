@@ -37,9 +37,19 @@ mat-spinner {
 
   height: 5rem;
   margin: 1rem 0;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  //box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .input[type="file"] {
   visibility: hidden;
+}
+
+.image-preview img {
+  height: 100%;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+
 }

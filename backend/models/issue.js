@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const issueSchema = mongoose.Schema({
-  issuename: {
+  issueName: {
     type: String,
 
   },
-  issuecontent: {
+  issueComment: {
     type: String,
 
   },
